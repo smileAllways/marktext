@@ -5,6 +5,13 @@ import { fromEvent } from 'rxjs';
 import { CLASS_NAMES, PREVIEW_DOMPURIFY_CONFIG } from '../../../config';
 import { sanitize } from '../../../utils';
 import { finalizeRenderedDiagram, renderDiagram } from '../../../utils/diagram/render';
+import {
+    applyDiagramZoom,
+    DIAGRAM_ZOOM_BADGE_CLASS,
+    DIAGRAM_ZOOMED_CLASS,
+    isDiagramZoomGesture,
+    nextDiagramZoom,
+} from '../../../utils/diagram/zoom';
 import logger from '../../../utils/logger';
 import Parent from '../../base/parent';
 
@@ -15,6 +22,8 @@ class DiagramPreview extends Parent {
     private _type: string;
     private _rendered = false;
     private _cancelFinalize: (() => void) | null = null;
+    // Kept on the block rather than the DOM so it survives re-renders while editing.
+    private _zoom = 1;
     static override blockName = 'diagram-preview';
 
     static create(muya: Muya, state: IDiagramState) {
@@ -51,11 +60,47 @@ class DiagramPreview extends Parent {
     private _attachDOMEvents() {
         const clickObservable = fromEvent(this.domNode!, 'click');
         clickObservable.subscribe(this.clickHandler.bind(this));
+        // Not passive: preventing the default keeps Ctrl+wheel from zooming the whole window.
+        const wheelObservable = fromEvent<WheelEvent>(this.domNode!, 'wheel', { passive: false });
+        wheelObservable.subscribe(this.wheelHandler.bind(this));
+    }
+
+    wheelHandler(event: WheelEvent) {
+        if (!this._rendered || !isDiagramZoomGesture(event))
+            return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        const zoom = nextDiagramZoom(this._zoom, event);
+        if (zoom === this._zoom)
+            return;
+
+        // Keep the point under the cursor in place once the zoomed diagram scrolls sideways.
+        const node = this.domNode!;
+        const offsetX = event.clientX - node.getBoundingClientRect().left;
+        const anchorX = node.scrollLeft + offsetX;
+        const ratio = zoom / this._zoom;
+
+        this._zoom = zoom;
+        applyDiagramZoom(node, zoom);
+        node.scrollLeft = Math.max(0, anchorX * ratio - offsetX);
+    }
+
+    resetZoom() {
+        this._zoom = 1;
+        applyDiagramZoom(this.domNode!, 1);
     }
 
     clickHandler(event: Event) {
         event.preventDefault();
         event.stopPropagation();
+
+        const target = event.target;
+        if (target instanceof Element && target.closest(`.${DIAGRAM_ZOOM_BADGE_CLASS}`)) {
+            this.resetZoom();
+            return;
+        }
 
         if (this.muya.isReadOnly) {
             if (this._rendered) {
@@ -88,6 +133,7 @@ class DiagramPreview extends Parent {
         this._cancelFinalize = null;
         this.domNode!.removeAttribute('role');
         this.domNode!.removeAttribute('aria-label');
+        this.domNode!.classList.remove(DIAGRAM_ZOOMED_CLASS);
 
         if (code) {
             this.domNode!.innerHTML = i18n.t('Loading...');
@@ -106,6 +152,8 @@ class DiagramPreview extends Parent {
                 });
                 this._rendered = true;
                 this._cancelFinalize = finalizeRenderedDiagram(this.domNode!, i18n.t('Diagram'));
+                if (this._zoom !== 1)
+                    applyDiagramZoom(this.domNode!, this._zoom);
             }
             catch (error) {
                 const detail
