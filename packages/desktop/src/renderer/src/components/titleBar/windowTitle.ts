@@ -1,4 +1,5 @@
-const APP_NAME = 'MarkText'
+// Matches productName in electron-builder.yml so the fork is told apart from MarkText.
+const APP_NAME = 'MarkText Fork'
 
 // Linux/Windows window managers, taskbars and task switchers identify the
 // application from the trailing "- AppName" of the title. macOS already shows

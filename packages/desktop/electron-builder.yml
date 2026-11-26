@@ -1,5 +1,7 @@
-appId: com.github.marktext.marktext
-productName: MarkText
+# Unofficial personal fork: its own name, id and badged icon keep it distinct
+# from (and installable next to) the official MarkText.
+appId: io.github.smileallways.marktext-fork
+productName: MarkText Fork
 directories:
   buildResources: build
   output: ../../dist
@@ -82,50 +84,50 @@ asarUnpack:
   - resources/**
 fileAssociations:
   - ext: md
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
   - ext: markdown
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
   - ext: mmd
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
   - ext: mdown
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
   - ext: mdtxt
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
   - ext: mdtext
-    name: Markdown
+    name: MarkTextFork.Markdown
     description: Markdown document
     mimeType: text/markdown
     role: Editor
     icon: icons/md.ico
 win:
   executableName: marktext
-  artifactName: 'marktext-win-${arch}-${version}.${ext}'
+  artifactName: 'marktext-fork-win-${arch}-${version}.${ext}'
   target:
     - target: 'nsis'
     - target: 'zip'
-  icon: static/icon.ico
+  icon: build/fork/icon.png
 nsis:
-  artifactName: 'marktext-win-${arch}-${version}-setup.${ext}'
+  artifactName: 'marktext-fork-win-${arch}-${version}-setup.${ext}'
   shortcutName: ${productName}
   uninstallDisplayName: ${productName}
   createDesktopShortcut: true

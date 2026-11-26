@@ -32,7 +32,20 @@ const customUnInstall = macroBody('customUnInstall')
 
 describe('Windows Markdown file association (build/windows/installer.nsh)', () => {
   it('keeps the ProgId name an existing "Open with" choice points at', () => {
-    expect(script).toMatch(/!define\s+MT_PROGID\s+"MarkText\.Document"/)
+    expect(script).toMatch(/!define\s+MT_PROGID\s+"MarkTextFork\.Document"/)
+  })
+
+  it('uses ProgIds of its own, apart from the official MarkText', () => {
+    expect(script).not.toMatch(/"MarkText\.Document"/)
+    expect(script).not.toMatch(/Classes\\Markdown\\/)
+  })
+
+  it('writes the open command for the ProgId electron-builder registers', () => {
+    const builderConfig = readFileSync(path.resolve(__dirname, '../../../electron-builder.yml'), 'utf8')
+    const ebProgId = /!define\s+MT_EB_PROGID\s+"([^"]+)"/.exec(script)?.[1]
+    expect(ebProgId, 'MT_EB_PROGID is not defined').toBeTruthy()
+    expect(builderConfig).toContain(`name: ${ebProgId}`)
+    expect(customInstall).toContain('${MT_EB_PROGID}\\shell\\open\\command')
   })
 
   it('registers without prompting, so no answer can leave the ProgId deleted', () => {

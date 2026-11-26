@@ -23,6 +23,11 @@
           </div>
         </el-col>
         <el-col :span="24">
+          <div class="text">
+            {{ forkNotice }}
+          </div>
+        </el-col>
+        <el-col :span="24">
           <div
             class="text"
             style="min-height: auto"
@@ -44,12 +49,14 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useMainStore } from '@/store'
 import bus from '../../bus'
-import MarkTextLogo from '../../assets/images/logo.png'
+import MarkTextLogo from '../../assets/images/logo-fork.png'
 import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const name = 'MarkText'
+const name = 'MarkText Fork'
+// Fork-only notice; kept out of the locale files so the official translations stay untouched.
+const forkNotice = 'Unofficial personal fork — not affiliated with the MarkText project'
 const copyright = t('about.copyright', { year: new Date().getFullYear() })
 const copyrightContributors = t('about.copyrightContributors')
 const showAboutDialog = ref(false)

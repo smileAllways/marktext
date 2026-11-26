@@ -1,6 +1,10 @@
 ; Windows remembers an "Open with" choice as a UserChoice naming this ProgId,
 ; and that pin outlives any reinstall, so the name must stay as it is.
-!define MT_PROGID "MarkText.Document"
+; The fork uses ProgIds of its own so that installing or removing it never
+; rewrites the official MarkText's file associations.
+!define MT_PROGID "MarkTextFork.Document"
+; Must match `fileAssociations[].name` in electron-builder.yml.
+!define MT_EB_PROGID "MarkTextFork.Markdown"
 
 ; These must be written on every install and removed only on a real uninstall.
 ; electron-builder runs the previous version's uninstaller silently before it
@@ -39,17 +43,17 @@
   !insertmacro mtAssociateExtension ".mdx"
 
   WriteRegStr SHELL_CONTEXT "Software\Classes\${MT_PROGID}" \
-    "" "MarkText Markdown Document"
+    "" "MarkText Fork Markdown Document"
   WriteRegExpandStr SHELL_CONTEXT "Software\Classes\${MT_PROGID}\DefaultIcon" \
     "" "$INSTDIR\resources\icons\md.ico,0"
   WriteRegExpandStr SHELL_CONTEXT "Software\Classes\${MT_PROGID}\shell\open\command" \
     "" '"$INSTDIR\marktext.exe" "%1"'
 
-  ; electron-builder writes the command for its own ProgId — `Markdown`, the
+  ; electron-builder writes the command for its own ProgId — MT_EB_PROGID, the
   ; `fileAssociations[].name` in electron-builder.yml — with the executable
   ; path unquoted, which runs `C:\Program` when the directory the user picked
   ; during setup contains a space.
-  WriteRegStr SHELL_CONTEXT "Software\Classes\Markdown\shell\open\command" \
+  WriteRegStr SHELL_CONTEXT "Software\Classes\${MT_EB_PROGID}\shell\open\command" \
     "" '"$INSTDIR\marktext.exe" "%1"'
 
   ; Explorer serves file types from a cache that a fresh install otherwise
