@@ -1,209 +1,81 @@
-<p align="center"><img src="docs/assets/logo-small.png" alt="MarkText" width="100" height="100"></p>
+# MarkText — 개인 포크 (mermaid 다이어그램 확대·이동)
 
-<h1 align="center">MarkText</h1>
+> **This is an unofficial personal fork of [MarkText](https://github.com/marktext/marktext).**
+> It adds inline zoom and drag-to-pan for rendered diagrams (mermaid etc.). It is not affiliated
+> with or endorsed by the MarkText project. For the official app, documentation and support, visit
+> the [official repository](https://github.com/marktext/marktext) and [marktext.me](https://marktext.me).
 
-<div align="center">
-  <a href="https://twitter.com/intent/tweet?via=marktextme&url=https://github.com/marktext/marktext/&text=What%20do%20you%20want%20to%20say%20to%20app?&hashtags=happyMarkText">
-    <img src="https://img.shields.io/twitter/url/https/github.com/marktext/marktext.svg?style=for-the-badge" alt="twitter">
-  </a>
-</div>
-<div align="center">
-  <strong>:high_brightness: Next generation markdown editor :crescent_moon:</strong><br>
-  A simple and elegant open-source markdown editor that focused on speed and usability.<br>
-  <sub>Available for Linux, macOS and Windows.</sub>
-</div>
+이 저장소는 [marktext/marktext](https://github.com/marktext/marktext)를 포크해 개인적으로 수정한
+**비공식 버전**입니다. 공식 MarkText 프로젝트와 관계가 없으며, 공식 프로젝트가 만들거나 보증한 것이
+아닙니다. MarkText 자체의 소개, 사용법, 공식 설치 파일은 아래 [공식 프로젝트](#공식-프로젝트)를
+참고하세요.
 
-<br>
+## 수정 사항
 
-<div align="center">
-  <!-- License -->
-  <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/marktext/marktext.svg" alt="LICENSE">
-  </a>
-  <!-- Downloads total -->
-  <a href="https://github.com/marktext/marktext/releases">
-    <img src="https://img.shields.io/github/downloads/marktext/marktext/total.svg" alt="total download">
-  </a>
-  <!-- Downloads latest release -->
-  <a href="https://github.com/marktext/marktext/releases/latest">
-    <img src="https://img.shields.io/github/downloads/marktext/marktext/latest/total.svg" alt="latest download">
-  </a>
-  <!-- sponsors -->
-  <a href="https://opencollective.com/marktext">
-    <img src="https://opencollective.com/marktext/tiers/silver-sponsors/badge.svg?label=SilverSponsors&color=brightgreen" alt="sponsors">
-  </a>
-</div>
+공식 `develop` 브랜치(0.24.0-dev, 커밋 `95a14e5c`) 위에 다음 기능을 추가했습니다. mermaid뿐 아니라
+그려진 모든 다이어그램(flowchart, sequence, PlantUML, Vega-Lite)에 똑같이 적용됩니다.
 
-<div align="center">
-  <h3>
-    <a href="https://marktext.me">
-      Website
-    </a>
-    <span> | </span>
-    <a href="https://github.com/marktext/marktext#features">
-      Features
-    </a>
-    <span> | </span>
-    <a href="https://github.com/marktext/marktext#download-and-installation">
-      Downloads
-    </a>
-    <span> | </span>
-    <a href="https://github.com/marktext/marktext#development">
-      Development
-    </a>
-    <span> | </span>
-    <a href="https://github.com/marktext/marktext#contribution">
-      Contribution
-    </a>
-  </h3>
-</div>
+| 기능                      | 사용법                                                                                                                                                                         |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 다이어그램 개별 확대/축소 | 다이어그램 위에서 `Ctrl`+휠(macOS는 `Cmd`+휠). 25%~500%. 다이어그램 밖의 `Ctrl`+휠은 기존처럼 창 전체를 확대/축소합니다.                                                       |
+| 원래 크기로 되돌리기      | 확대/축소 중 오른쪽 아래에 나타나는 배지(예: `150% ⟲`)를 클릭합니다.                                                                                                           |
+| 드래그 이동(패닝)         | 100%보다 크게 확대한 다이어그램을 왼쪽 버튼으로 끌면 보이는 영역이 움직입니다. 가로는 다이어그램 안을, 세로는 문서를 스크롤합니다.                                             |
+| 코드 열기 방식 변경       | 그려진 다이어그램은 한 번 클릭해도 코드가 열리지 않습니다. 더블클릭하거나 툴바의 편집(연필) 버튼으로 엽니다. 비어 있거나 오류인 다이어그램은 기존처럼 한 번 클릭으로 열립니다. |
 
-<div align="center">
-  <sub>Translations:</sub>
-  <a href="docs/i18n/README-zh_cn.md#readme">
-    <span>:cn:</span>
-  </a>
-  <a href="docs/i18n/README-zh_tw.md#readme">
-    <span>:taiwan:</span>
-  </a>
-  <a href="docs/i18n/README-jp.md#readme">
-    <span>:jp:</span>
-  </a>
-  <a href="docs/i18n/README-fr.md#readme">
-    <span>:fr:</span>
-  </a>
-  <a href="docs/i18n/README-tr.md#readme">
-    <span>:tr:</span>
-  </a>
-  <a href="docs/i18n/README-es.md#readme">
-    <span>:es:</span>
-  </a>
-  <a href="docs/i18n/README-pt.md#readme">
-    <span>:portugal:</span>
-  </a>
-  <a href="docs/i18n/README-kr.md#readme">
-    <span>:kr:</span>
-  </a>
-  <a href="docs/i18n/README-bn.md#readme">
-    <span>:bangladesh:</span>
-  </a>
-</div>
+한 파일에 mermaid 다이어그램이 여러 개일 때 서로의 내용이 섞여 깨지던 문제(MarkText 0.19.x 이하)는
+공식 프로젝트의 v0.20([#5465](https://github.com/marktext/marktext/pull/5465)),
+v0.24([#6001](https://github.com/marktext/marktext/pull/6001))에서 이미 고쳐졌고, 이 포크에도
+포함돼 있습니다.
 
-<div align="center">
-  <sub>This Markdown editor that could. Built with ❤︎ by
-    <a href="https://github.com/Jocs">Jocs</a> and
-    <a href="https://github.com/marktext/marktext/graphs/contributors">
-      contributors
-    </a>
-    .
-  </sub>
-</div>
+변경된 소스는 `packages/muya/src/` 아래 다음 파일들입니다.
 
-<br />
+- `utils/diagram/zoom.ts`, `utils/diagram/pan.ts` — 확대/축소, 드래그 이동
+- `block/extra/diagram/diagramPreview.ts` — 마우스 이벤트 연결, 클릭·더블클릭 동작
+- `assets/styles/blockSyntax.css` — 스크롤, 커서, 배지 스타일
 
-<h2 align="center">Sponsors</h2>
+## 다운로드
 
-MarkText is an open-source Markdown editor powered by the support of its community. If MarkText improves your workflow, please consider [sponsoring the project](https://github.com/sponsors/marktext). Thank you to all the sponsors ❤️
+[Releases](https://github.com/smileAllways/marktext/releases)에서 받을 수 있습니다.
 
-**Special Sponsor**
+- **Windows x64용 설치 파일만** 제공합니다. macOS·Linux와 다른 아키텍처는 아래
+  [직접 빌드하기](#직접-빌드하기)를 참고하세요.
+- 코드 서명이 없어 처음 실행할 때 Windows SmartScreen 경고가 뜰 수 있습니다("추가 정보 → 실행").
+- 앱 메뉴의 "업데이트 확인"에서 업데이트를 수락하면 공식판으로 바뀌어 위 기능이 사라집니다.
+- 각 릴리스에 설치 파일의 SHA-256 값을 적어 두었습니다.
 
-<table>
-<tr>
-<td width="182"><a href="https://serpapi.com/?utm_source=marktext"><img src="docs/assets/sponsors/serpapi.png" width="150"></a></td>
-<td align="left"><a href="https://serpapi.com/?utm_source=marktext">Scrape Google and other search engines from our fast, easy, and complete API.</a></td>
-</tr>
-</table>
+## 직접 빌드하기
 
-<!-- current-sponsors:start -->
-
-**Current Public Sponsors (1)**
-
-[![Current public sponsors](docs/assets/sponsors/current.svg)](https://github.com/sponsors/marktext)
-
-Only active, public GitHub sponsors are listed here. Thank you to our private sponsors as well.
-
-<!-- current-sponsors:end -->
-
-## Screenshot
-
-![](docs/assets/marktext.png?raw=true)
-
-## Features
-
-- Realtime preview (WYSIWYG) and a clean and simple interface to get a distraction-free writing experience.
-- Support [CommonMark Spec](https://spec.commonmark.org), [GitHub Flavored Markdown Spec](https://github.github.com/gfm/) and selective support [Pandoc markdown](https://pandoc.org/MANUAL.html#pandocs-markdown).
-- Markdown extensions such as math expressions (KaTeX), front matter and emojis.
-- Support paragraphs and inline style shortcuts to improve your writing efficiency.
-- Output **HTML** and **PDF** files.
-- Various [themes](https://marktext.me/docs/themes): **Cadmium Light**, **Material Dark** etc.
-- Various editing modes: **Source Code mode**, **Typewriter mode**, **Focus mode**.
-- Paste images directly from clipboard.
-
-## Download and Installation
-
-![platform](https://img.shields.io/static/v1.svg?label=Platform&message=Linux%20x64%2Farm64%20|%20macOS%20x64%2Farm64%20|%20Windows%20x64%2Farm64&style=for-the-badge)
-
-|               ![](https://raw.githubusercontent.com/wiki/ryanoasis/nerd-fonts/screenshots/v1.0.x/mac-pass-sm.png)               |               ![](https://raw.githubusercontent.com/wiki/ryanoasis/nerd-fonts/screenshots/v1.0.x/windows-pass-sm.png)               |              ![](https://raw.githubusercontent.com/wiki/ryanoasis/nerd-fonts/screenshots/v1.0.x/linux-pass-sm.png)              |
-| :-----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------: |
-| [![Download for macOS](https://img.shields.io/badge/macOS-Download-blue)](https://github.com/marktext/marktext/releases/latest) | [![Download for Windows](https://img.shields.io/badge/Windows-Download-blue)](https://github.com/marktext/marktext/releases/latest) | [![Download for Linux](https://img.shields.io/badge/Linux-Download-blue)](https://github.com/marktext/marktext/releases/latest) |
-
-Want to see new features of the latest version? Please refer to [CHANGELOG](https://marktext.me/docs/changelog).
-
-#### macOS
-
-Requires macOS 13 (Ventura) or later. Universal builds aren't published — pick the matching `arm64` or `x64` installer.
-
-You can either download the latest `marktext-mac-(arm64|x64)-%version%.dmg` from the [release page](https://github.com/marktext/marktext/releases/latest) or install MarkText using [**homebrew cask**](https://github.com/caskroom/homebrew-cask). To use Homebrew-Cask you just need to have [Homebrew](https://brew.sh/) installed.
+빌드 방법은 공식 프로젝트와 같습니다. 자세한 준비 사항은
+[공식 빌드 문서](https://marktext.me/docs/dev/build)를 참고하세요. Node.js 22.12 이상과 pnpm 10
+이상이 필요합니다.
 
 ```bash
-brew install --cask mark-text
+pnpm install
+pnpm run dev            # 개발 모드로 실행
+pnpm run build:win:x64  # Windows x64 설치 파일 (dist/ 폴더에 생성)
 ```
 
-#### Windows
+Windows에서 네이티브 모듈 `native-keymap`을 컴파일하려면 Visual Studio 2022에 **MSVC v143 Spectre
+완화 라이브러리(x64/x86)** 구성 요소가 설치돼 있어야 합니다.
 
-Requires Windows 10 or 11. Both x64 and arm64 installers are published — pick the architecture that matches your machine.
+## 공식 프로젝트
 
-Simply download and install MarkText via the setup wizard (`marktext-win-(x64|arm64)-%version%-setup.exe`) and choose whether to install per-user or machine wide. Alternatively, install MarkText using a package manager such as [Chocolatey](https://chocolatey.org/) or [Winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/).
+MarkText 자체에 대한 정보, 사용법, 정식 설치 파일은 공식 프로젝트에서 확인하세요.
 
-To use Chocolatey, you need to have [Chocolatey](https://chocolatey.org/install) installed:
+- 저장소: <https://github.com/marktext/marktext>
+- 웹사이트·문서: <https://marktext.me>
+- 정식 설치 파일: <https://github.com/marktext/marktext/releases>
+- 공식 프로젝트 후원: <https://github.com/sponsors/marktext>
 
-```bash
-choco install marktext
+이 포크에서만 생기는 문제(위 [수정 사항](#수정-사항) 관련)는 공식 프로젝트에 이슈로 올리지 말아 주세요.
+
+## 라이센스
+
+MarkText는 [MIT 라이센스](LICENSE)이며, 이 포크도 같은 조건으로 배포합니다.
+
+```
+Copyright (c) 2017-present Luo Ran
+Copyright (c) 2018-present MarkText Contributors
 ```
 
-To use Winget, you need to have [Winget](https://docs.microsoft.com/en-us/windows/package-manager/winget/#install-winget) installed:
-
-```bash
-winget install marktext
-```
-
-#### Linux
-
-Please follow the [Linux installation instructions](https://marktext.me/docs/installation).
-
-#### Other
-
-All binaries for Linux, macOS and Windows can be downloaded from the [release page](https://github.com/marktext/marktext/releases/latest). If a version is unavailable for your system, then please open an [issue](https://github.com/marktext/marktext/issues).
-
-## Development
-
-If you wish to build MarkText yourself, please check out our [build instructions](https://marktext.me/docs/dev/build).
-
-- [User documentation](https://marktext.me/docs/introduction)
-- [Developer documentation](https://marktext.me/docs/dev/overview)
-
-If you have any questions regarding MarkText, you are welcome to write an issue. When doing so please use the default format found when opening an issue. Of course, if you submit a PR directly, it will be greatly appreciated.
-
-## Contribution
-
-MarkText is in development, please make sure to read the [Contributing Guide](.github/CONTRIBUTING.md) before making a pull request. Want to add some features to MarkText? Refer to our [roadmap](https://github.com/marktext/marktext/projects) and open issues.
-
-## Contributors
-
-Thank you to all the people who have already contributed to MarkText[[contributors](https://github.com/marktext/marktext/graphs/contributors)].
-
-<a href="https://github.com/marktext/marktext/graphs/contributors"><img src="https://opencollective.com/marktext/contributors.svg?width=890" /></a>
-
-## License
-
-[**MIT**](LICENSE).
+"MarkText" 이름과 로고는 원 프로젝트의 것입니다.
