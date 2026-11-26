@@ -911,6 +911,18 @@ figure.mu-diagram-block .mu-diagram-preview.mu-diagram-zoomed {
     overflow-x: auto;
 }
 
+figure.mu-diagram-block .mu-diagram-preview.mu-diagram-pannable {
+    cursor: grab;
+}
+
+/* While a zoomed diagram is dragged the pointer may leave it, so the grabbing
+   cursor and the selection guard apply to the whole document. */
+html.mu-diagram-panning,
+html.mu-diagram-panning * {
+    cursor: grabbing !important;
+    user-select: none !important;
+}
+
 figure.mu-diagram-block .mu-diagram-zoom-badge {
     position: absolute;
     right: 6px;

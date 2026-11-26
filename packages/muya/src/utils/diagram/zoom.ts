@@ -1,3 +1,5 @@
+import { DIAGRAM_PANNABLE_CLASS } from './pan';
+
 // Inline zoom for a rendered diagram preview. The factor is relative to the
 // fitted size the preview already uses, so 1 means "as rendered".
 export const MIN_DIAGRAM_ZOOM = 0.25;
@@ -77,6 +79,7 @@ export function applyDiagramZoom(target: HTMLElement, zoom: number): void {
     const width = media ? naturalWidth(media) : 0;
 
     target.classList.toggle(DIAGRAM_ZOOMED_CLASS, zoom !== 1 && width > 0);
+    target.classList.toggle(DIAGRAM_PANNABLE_CLASS, zoom > 1 && width > 0);
     syncBadge(target, width > 0 ? zoom : 1);
 
     if (!media)

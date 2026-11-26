@@ -4,6 +4,7 @@ import type { IPreviewDiagramPayload } from '../../../ui/previewToolBar';
 import { fromEvent } from 'rxjs';
 import { CLASS_NAMES, PREVIEW_DOMPURIFY_CONFIG } from '../../../config';
 import { sanitize } from '../../../utils';
+import { DIAGRAM_PANNABLE_CLASS, startDiagramPan } from '../../../utils/diagram/pan';
 import { finalizeRenderedDiagram, renderDiagram } from '../../../utils/diagram/render';
 import {
     applyDiagramZoom,
@@ -60,9 +61,26 @@ class DiagramPreview extends Parent {
     private _attachDOMEvents() {
         const clickObservable = fromEvent(this.domNode!, 'click');
         clickObservable.subscribe(this.clickHandler.bind(this));
+        const dblclickObservable = fromEvent(this.domNode!, 'dblclick');
+        dblclickObservable.subscribe(this.dblclickHandler.bind(this));
         // Not passive: preventing the default keeps Ctrl+wheel from zooming the whole window.
         const wheelObservable = fromEvent<WheelEvent>(this.domNode!, 'wheel', { passive: false });
         wheelObservable.subscribe(this.wheelHandler.bind(this));
+        const mousedownObservable = fromEvent<MouseEvent>(this.domNode!, 'mousedown');
+        mousedownObservable.subscribe(this.mousedownHandler.bind(this));
+    }
+
+    mousedownHandler(event: MouseEvent) {
+        const target = event.target;
+        if (event.button !== 0 || this._zoom <= 1 || !this._rendered)
+            return;
+        if (target instanceof Element && target.closest(`.${DIAGRAM_ZOOM_BADGE_CLASS}`))
+            return;
+
+        // Keep the editor from starting a text selection while the diagram is dragged.
+        event.preventDefault();
+        event.stopPropagation();
+        startDiagramPan(this.domNode!, event);
     }
 
     wheelHandler(event: WheelEvent) {
@@ -114,6 +132,27 @@ class DiagramPreview extends Parent {
             return;
         }
 
+        // A rendered diagram is something to look at (zoom, drag): a single click
+        // must not swap in its code. Double-click or the toolbar's edit button
+        // opens it. Empty or broken diagrams keep single-click so they stay fixable.
+        if (this._rendered)
+            return;
+
+        this._openCode();
+    }
+
+    dblclickHandler(event: Event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const target = event.target;
+        if (this.muya.isReadOnly || (target instanceof Element && target.closest(`.${DIAGRAM_ZOOM_BADGE_CLASS}`)))
+            return;
+
+        this._openCode();
+    }
+
+    private _openCode() {
         if (this.parent == null)
             return;
 
@@ -133,7 +172,7 @@ class DiagramPreview extends Parent {
         this._cancelFinalize = null;
         this.domNode!.removeAttribute('role');
         this.domNode!.removeAttribute('aria-label');
-        this.domNode!.classList.remove(DIAGRAM_ZOOMED_CLASS);
+        this.domNode!.classList.remove(DIAGRAM_ZOOMED_CLASS, DIAGRAM_PANNABLE_CLASS);
 
         if (code) {
             this.domNode!.innerHTML = i18n.t('Loading...');

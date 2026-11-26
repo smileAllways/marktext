@@ -338,3 +338,42 @@ describe('diagramPreview — accessible name', () => {
         expect(preview.domNode!.getAttribute('aria-label')).toBeNull();
     });
 });
+
+describe('diagramPreview — opening the code of a rendered diagram', () => {
+    async function makeRenderedPreview() {
+        loadRendererMock.mockResolvedValue({
+            parse: () => ({
+                drawSVG: (target: HTMLElement) => {
+                    target.innerHTML = '<svg width="10" height="10"></svg>';
+                },
+            }),
+        });
+        const { preview, muya } = makePreview('', 'flowchart');
+        Object.assign(muya, { isReadOnly: false });
+        await preview.update('st=>start: go');
+        const setCursor = vi.fn();
+        preview.parent = {
+            firstContentInDescendant: () => ({ setCursor }),
+        } as unknown as DiagramPreview['parent'];
+        return { preview, muya, setCursor };
+    }
+
+    it('keeps the code closed on a single click', async () => {
+        const { preview, setCursor } = await makeRenderedPreview();
+        preview.domNode!.click();
+        expect(setCursor).not.toHaveBeenCalled();
+    });
+
+    it('opens the code on double-click', async () => {
+        const { preview, setCursor } = await makeRenderedPreview();
+        preview.domNode!.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
+        expect(setCursor).toHaveBeenCalledWith(0, 0);
+    });
+
+    it('does not open the code on double-click while reading', async () => {
+        const { preview, muya, setCursor } = await makeRenderedPreview();
+        Object.assign(muya, { isReadOnly: true, eventCenter: { emit: vi.fn() } });
+        preview.domNode!.dispatchEvent(new MouseEvent('dblclick', { bubbles: true, cancelable: true }));
+        expect(setCursor).not.toHaveBeenCalled();
+    });
+});
