@@ -4,6 +4,7 @@
 > It adds inline zoom and drag-to-pan for rendered diagrams (mermaid etc.). It is not affiliated
 > with or endorsed by the MarkText project. For the official app, documentation and support, visit
 > the [official repository](https://github.com/marktext/marktext) and [marktext.me](https://marktext.me).
+> This fork is **not maintained or supported** and is provided "as is", without warranty of any kind.
 
 이 저장소는 [marktext/marktext](https://github.com/marktext/marktext)를 포크해 개인적으로 수정한
 **비공식 버전**입니다. 공식 MarkText 프로젝트와 관계가 없으며, 공식 프로젝트가 만들거나 보증한 것이
@@ -37,6 +38,10 @@ v0.24([#6001](https://github.com/marktext/marktext/pull/6001))에서 이미 고�
 
 [Releases](https://github.com/smileAllways/marktext/releases)에서 받을 수 있습니다.
 
+- 설치되는 앱의 이름은 **MarkText Fork**이고, 아이콘 오른쪽 아래에 주황색 포크 배지가 있습니다. 공식
+  MarkText와 앱 ID·설치 위치·파일 연결이 달라 함께 설치할 수 있습니다.
+- 설정은 공식판과 같은 폴더(`%APPDATA%\marktext`)를 씁니다. 둘 중 하나를 제거할 때 "Do you want to
+  delete user settings?"에 **아니요**를 고르세요. "예"를 고르면 함께 쓰는 설정이 지워집니다.
 - **Windows x64용 설치 파일만** 제공합니다. macOS·Linux와 다른 아키텍처는 아래
   [직접 빌드하기](#직접-빌드하기)를 참고하세요.
 - 코드 서명이 없어 처음 실행할 때 Windows SmartScreen 경고가 뜰 수 있습니다("추가 정보 → 실행").
@@ -67,7 +72,17 @@ MarkText 자체에 대한 정보, 사용법, 정식 설치 파일은 공식 프�
 - 정식 설치 파일: <https://github.com/marktext/marktext/releases>
 - 공식 프로젝트 후원: <https://github.com/sponsors/marktext>
 
-이 포크에서만 생기는 문제(위 [수정 사항](#수정-사항) 관련)는 공식 프로젝트에 이슈로 올리지 말아 주세요.
+## 유지보수·지원 안내 (면책)
+
+- 이 포크는 개인 사용을 위해 만든 것으로, **유지보수하거나 지원하는 프로젝트가 아닙니다.** 이슈·문의·기능
+  요청을 받지 않으며, 공식 프로젝트의 업데이트를 따라가거나 보안 수정을 반영한다는 보장도 없습니다.
+- 이 포크의 코드와 설치 파일은 MIT 라이센스에 따라 **있는 그대로(AS IS)** 제공되며, 어떠한 보증도 하지
+  않습니다. 사용으로 생기는 문제나 손해에 대해 이 포크의 작성자는 책임지지 않습니다.
+- 앱 메뉴의 "문제 보고"는 공식 MarkText 이슈 페이지로 연결됩니다. 버그를 발견하면 먼저
+  [공식 설치 파일](https://github.com/marktext/marktext/releases)에서도 같은 문제가 생기는지 확인하고,
+  공식판에서도 재현될 때만 공식 프로젝트에 신고해 주세요. 이 포크에서만 생기는 문제(위
+  [수정 사항](#수정-사항) 관련)는 공식 프로젝트에 올리지 말아 주세요.
+- 안정적인 사용과 지원이 필요하면 [공식 MarkText](https://github.com/marktext/marktext)를 사용하세요.
 
 ## 라이센스
 
