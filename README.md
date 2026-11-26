@@ -86,7 +86,9 @@ MarkText 자체에 대한 정보, 사용법, 정식 설치 파일은 공식 프�
 
 ## 라이센스
 
-MarkText는 [MIT 라이센스](LICENSE)이며, 이 포크도 같은 조건으로 배포합니다.
+MarkText는 [MIT 라이센스](LICENSE)이며, 이 포크도 같은 조건으로 배포합니다. 설치 폴더에는 MarkText의
+라이센스(`LICENSE.txt`)와 함께 포함된 라이브러리들의 라이센스 고지(`THIRD-PARTY-LICENSES.txt`)가 함께
+설치됩니다.
 
 ```
 Copyright (c) 2017-present Luo Ran

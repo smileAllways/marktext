@@ -43,6 +43,14 @@ extraResources:
     filter:
       - '**/*'
       - '!locales/**/!(*.min).json'
+# MIT (and the bundled libraries' licenses) require their notices to ship with
+# every copy, so they sit next to the executable rather than behind a link.
+# Regenerate the third-party file with `pnpm run gen-third-party`.
+extraFiles:
+  - from: ../../LICENSE
+    to: LICENSE.txt
+  - from: build/THIRD-PARTY-LICENSES.txt
+    to: THIRD-PARTY-LICENSES.txt
 npmRebuild: false
 electronLanguages: # Keep Chromium/AppKit locales for the UI languages MarkText supports
   # Values must cover both spellings: "xx-YY" .pak files on Windows/Linux and
